@@ -94,3 +94,27 @@ catch(InvalidOperationException ex) { Console.WriteLine(ex.Message); }
 
 try { a2.ReSchedule(DateTime.Now.AddDays(2)); }
 catch(InvalidOperationException ex) { Console.WriteLine(ex.Message); }
+
+Console.WriteLine("");
+
+IAppointmentRepository app =  new AppointmentRepository();
+
+var doc1 = new Doctor(103, "DR.Anisha", "Psychologist", 1200, "016369685747");
+var doc2 = new Doctor(104, "DR.Dinesh", "Gynecologist", 1000, "01685749620");
+
+var pat = new Patient(5, "Rabbi", 21, "01965741236");
+
+app.Add(new Appointment(201,doc1,pat,DateTime.Now.AddDays(2)));
+app.Add(new Appointment(202,doc2,pat,DateTime.Now.AddDays(1)));
+app.Add(new Appointment(203, doc2, pat, DateTime.Now.AddDays(3)));
+
+Console.WriteLine($"Total appointment: {app.GetAll().Count}");
+Console.WriteLine($"Doctor Appointment: {app.GetByDoctor(104).Count}");
+Console.WriteLine($"Doctor Appointment: {app.GetByDoctor(103).Count}");
+Console.WriteLine(app.GetByDoctor(999).Count);
+
+try
+{
+    app.Add(new Appointment(201, doc1, pat, DateTime.Now.AddDays(2)));
+}
+catch(ArgumentException ex) { Console.WriteLine(ex.Message); }
