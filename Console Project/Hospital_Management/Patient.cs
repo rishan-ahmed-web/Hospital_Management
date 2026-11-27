@@ -7,7 +7,7 @@ namespace Hospital_Management
     public class Patient : Person
     {
         public int Age { get; private set; }
-        public Patient(int age,int id, string? name, string? phone) : base(id, name, phone)
+        public Patient(int id, string? name, int age, string? phone) : base(id, name, phone)
         {
             if(age > 0)
                 Age = age;
